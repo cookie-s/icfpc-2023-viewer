@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.2.0/svg.min.js"></script>
+    </head>
+<style>
+.is-fullwidth {
+    width: 100%;
+}
+.is-fullheight {
+    height: 100%;
+}
+</style>
+    </head>
+
+    <body style="height: 100vh;">
+        <section class="section is-fullheight">
+            <div class="container is-flex is-flex-direction-row is-fullwidth is-fullheight">
+                <div class="is-flex is-flex-direction-column is-fullwidth is-fullheight">
+                    <div class="is-flex is-flex-direction-column is-fullwidth is-fullheight">
+                        <p>Input</p>
+                        <textarea id="input" class="is-fullwidth is-fullheight"></textarea>
+                    </div>
+
+                    <div class="is-flex is-flex-direction-column is-fullwidth is-fullheight">
+                        <p>Output</p>
+                        <textarea id="output" class="is-fullwidth is-fullheight"></textarea>
+                    </div>
+
+                    <button onclick="submit()">→→→！！！無料！いますぐ契約！！！←←←</button>
+                </div>
+
+                <div id="canvas" class="is-fullwidth is-fullheight">
+                </div>
+            </div>
+        </section>
+
+        <script src="viewer.js"></script>
+    </body>
+</html>
