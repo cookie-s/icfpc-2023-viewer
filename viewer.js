@@ -18,7 +18,7 @@ async function submit() {
             if(!r.ok) throw 'err';
             return r.text();
         })
-        .catch(_ => '{"placement":[]}');
+        .catch(_ => '{"placements":[]}');
     const output = JSON.parse(outputData);
 
     const room = {
@@ -58,7 +58,7 @@ async function submit() {
             .radius(20).fill('#0f0');
     }
 
-    const placements = output['placement'];
+    const placements = output['placements'];
     for(const placement of placements) {
         const {x, y} = placement;
         draw.circle({cx: x, cy: y})
