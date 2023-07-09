@@ -26,11 +26,11 @@
                     <div class="tabs">
                         <ul>
                             <li @click="updateTab('room')" :class="{'is-active': tab === 'room'}"><a>Room</a></li>
-                            <li @click="updateTab('submissions')" :class="{'is-active': tab === 'submissions'}"><a>Submissions</a></li>
+                            <li @click="updateTab('mountain')" :class="{'is-active': tab === 'mountain'}"><a>Mountain (Not Implemented yet)</a></li>
                         </ul>
                     </div>
 
-                    <div class="is-flex is-flex-direction-column is-fullwidth" v-if="tab === 'room'">
+                    <div class="is-flex is-flex-direction-column is-fullwidth" v-if="tab === 'room' || tab === 'mountain'">
                         <div class="is-flex is-flex-direction-column is-fullwidth">
                             <div class="is-flex is-flex-direction-column is-fullwidth">
                                 <p>Problem ID</p>
@@ -48,10 +48,9 @@
 
                             <button class="button is-primary" @click="submit">→→→！！！無料！いますぐ契約！！！←←←</button>
                         </div>
-
                     </div>
 
-                    <div v-if="tab === 'submissions'">
+                    <div v-if="tab === 'mountain'">
                         <input :value="hoge">
                     </div>
                 </div>
