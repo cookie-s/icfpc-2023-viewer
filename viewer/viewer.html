@@ -34,10 +34,19 @@
                         <div class="is-flex is-flex-direction-column is-fullwidth">
                             <div class="is-flex is-flex-direction-column is-fullwidth">
                                 <p>Problem ID</p>
-                                <input id="input" class="is-fullwidth" @change="submit" @keyup="submit" v-model="room_problemid">
+                                <div class="is-flex is-flex-direction-row is-fullwidth">
+                                    <button class="button is-dark is-outlined is-rounded" @click="++room_problemid > 0 && submit()">+</button>
+                                    <button class="button is-dark is-outlined is-rounded" @click="--room_problemid > 0 && submit()">-</button>
+                                    <input
+                                        id="input" class="is-fullwidth input"
+                                                   @change="parseInt(room_problemid) > 0 && submit()"
+                                                   @keyup="parseInt(room_problemid) > 0 && submit()"
+                                                   v-model="room_problemid"
+                                    >
+                                </div>
                             </div>
 
-                            <button @click="submit">→→→！！！無料！いますぐ契約！！！←←←</button>
+                            <button class="button is-primary" @click="submit">→→→！！！無料！いますぐ契約！！！←←←</button>
                         </div>
 
                     </div>

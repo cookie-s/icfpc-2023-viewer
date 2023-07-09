@@ -79,7 +79,6 @@ const app = new Vue({
     },
     methods: {
         async submit() {
-            console.log(this.room_problemid);
             await _submit({
                 problem_id: this.room_problemid,
             });
