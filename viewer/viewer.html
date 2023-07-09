@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.2.0/svg.min.js" crossorigin="anonymous"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js" crossorigin="anonymous"></script>
+        <style>[v-cloak]>*{display: none} [v-cloak]::before{content:"loading..."}</style>
+
+        <style>
+.is-fullwidth { width: 100%; }
+.is-fullheight { height: 100%; }
+        </style>
+
+    </head>
+
+    <body class="is-fullwidth">
+        <section class="section is-fullwidth">
+            <div class="container">
+                <div id="app">
+                    <div class="tabs">
+                        <ul>
+                            <li @click="updateTab('room')" :class="{'is-active': tab === 'room'}"><a>Room</a></li>
+                            <li @click="updateTab('submissions')" :class="{'is-active': tab === 'submissions'}"><a>Submissions</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="is-flex is-flex-direction-column is-fullwidth" v-if="tab === 'room'">
+                        <div class="is-flex is-flex-direction-column is-fullwidth">
+                            <div class="is-flex is-flex-direction-column is-fullwidth">
+                                <p>Problem ID</p>
+                                <input id="input" class="is-fullwidth" @change="submit" @keyup="submit" v-model="room_problemid">
+                            </div>
+
+                            <button @click="submit">→→→！！！無料！いますぐ契約！！！←←←</button>
+                        </div>
+
+                    </div>
+
+                    <div v-if="tab === 'submissions'">
+                        <input :value="hoge">
+                    </div>
+                </div>
+
+                <div id="canvas" class="is-fullwidth"></div> <!-- FIXME: Vue!!! -->
+            </div>
+        </section>
+
+        <script src="viewer.js"></script>
+    </body>
+</html>

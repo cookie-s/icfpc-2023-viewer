@@ -1,24 +1,22 @@
-const eInput = document.getElementById('input');
-
 const draw = SVG()
     .attr('class', 'is-fullwidth is-fullheight')
     .addTo('#canvas');
 
-async function submit() {
+async function _submit({problem_id}) {
     draw.clear();
 
-    const problemId = parseInt(eInput.value);
+    const problemId = problem_id;
     if(!(problemId > 0)) {
         throw 'invalid problem id';
     }
-    const inputData = await fetch(`input/problem-${problemId}.json`).then(e => e.text());
+    const inputData = await fetch(`../input/problem-${problemId}.json`).then(e => e.text());
     const input = JSON.parse(inputData);
-    const outputData = await fetch(`output/problem-${problemId}.json`)
+    const outputData = await fetch(`../output/problem-${problemId}.json`)
         .then(r => {
             if(!r.ok) throw 'err';
             return r.text();
         })
-        .catch(_ => '{"placements":[]}');
+        .catch(_ => '{"placements":[], "volumes":[]}');
     const output = JSON.parse(outputData);
 
     const room = {
@@ -55,21 +53,44 @@ async function submit() {
     for(const attendee of attendees) {
         const {x, y, _tastes} = attendee;
         draw.circle({cx: x, cy: y})
-            .radius(20).fill('#0f0');
+            .radius(5).fill('#0f0');
     }
 
     const placements = output['placements'];
-    for(const placement of placements) {
-        const {x, y} = placement;
+    const volumes = output['volumes'];
+    for (let i = 0; i < placements.length; i++) {
+        const {x, y} = placements[i];
+        const volume = volumes[i];
+
         draw.circle({cx: x, cy: y})
-            .radius(20).fill('#00f');
+            .radius(10)
+            .fill(`rgba(0, 0, 255, ${(1+volume)/20})`);
     }
 }
 
-async function init() {
-    eInput.value = '1';
-
-    await submit();
-}
-
-init();
+const app = new Vue({
+    el: '#app',
+    data: {
+        tab: 'room',
+        room_problemid: 1,
+    },
+    mounted() {
+        this.submit();
+    },
+    methods: {
+        async submit() {
+            console.log(this.room_problemid);
+            await _submit({
+                problem_id: this.room_problemid,
+            });
+        },
+        updateTab(tab) {
+            this.tab = tab;
+            if(tab === 'room') {
+                document.getElementById('canvas').classList.remove('is-hidden');
+            } else {
+                document.getElementById('canvas').classList.add('is-hidden');
+            }
+        }
+    }
+});
