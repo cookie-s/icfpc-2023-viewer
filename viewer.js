@@ -1,8 +1,5 @@
 const eInput = document.getElementById('input');
 
-const width = 1000;
-const height = 1000;
-
 const draw = SVG()
     .attr('class', 'is-fullwidth is-fullheight')
     .addTo('#canvas');
@@ -14,9 +11,14 @@ async function submit() {
     if(!(problemId > 0)) {
         throw 'invalid problem id';
     }
-    const inputData = (await fetch(`input/problem-${problemId}.json`).then(e => e.text()));
+    const inputData = await fetch(`input/problem-${problemId}.json`).then(e => e.text());
     const input = JSON.parse(inputData);
-    const outputData = (await fetch(`output/problem-${problemId}.json`).then(e => e.text()));
+    const outputData = await fetch(`output/problem-${problemId}.json`)
+        .then(r => {
+            if(!r.ok) throw 'err';
+            return r.text();
+        })
+        .catch(_ => '{"placement":[]}');
     const output = JSON.parse(outputData);
 
     const room = {
@@ -29,39 +31,38 @@ async function submit() {
         width: input['stage_width'],
         height: input['stage_height'],
         x: input['stage_bottom_left'][0],
-        y: input['stage_bottom_left'][1] - input['stage_height'],
+        y: input['stage_bottom_left'][1],
     };
 
     // room
-    draw.rect(0, 0)
-        .size(room.width, room.height)
+    draw.rect(room.width, room.height)
         .fill('#fff')
         .stroke('black');
 
     // stage
-    draw.rect(0, 0)
-        .size(stage.width, stage.height)
+    draw.rect(stage.width, stage.height)
+        .move(stage.x, stage.y)
         .fill('#ddd');
 
     const pillars = input['pillars'];
     for(const pillar of pillars) {
         const {center: [x, y], radius} = pillar;
-        draw.ellipse({cx: x, cy: y})
-            .radius(radius, radius).fill('#f00');
+        draw.circle({cx: x, cy: y})
+            .radius(radius).fill('#f00');
     }
 
     const attendees = input['attendees'];
     for(const attendee of attendees) {
         const {x, y, _tastes} = attendee;
-        draw.ellipse({cx: x, cy: y})
-            .radius(20, 20).fill('#0f0');
+        draw.circle({cx: x, cy: y})
+            .radius(20).fill('#0f0');
     }
 
     const placements = output['placement'];
     for(const placement of placements) {
         const {x, y} = placement;
-        draw.ellipse({cx: x, cy: y})
-            .radius(20, 20).fill('#00f');
+        draw.circle({cx: x, cy: y})
+            .radius(20).fill('#00f');
     }
 }
 
