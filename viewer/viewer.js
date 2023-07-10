@@ -162,6 +162,7 @@ const app = new Vue({
     },
     mounted() {
         this.submit();
+        this.updateTab('room');
     },
     methods: {
         async submit() {
@@ -178,6 +179,11 @@ const app = new Vue({
                 document.getElementById('canvas').classList.remove('is-hidden');
             } else {
                 document.getElementById('canvas').classList.add('is-hidden');
+            }
+            if(tab === 'mountain') {
+                document.getElementById('mountain-d3').classList.remove('is-hidden');
+            } else {
+                document.getElementById('mountain-d3').classList.add('is-hidden');
             }
         }
     }
