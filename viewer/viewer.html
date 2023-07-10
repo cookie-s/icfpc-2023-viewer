@@ -9,6 +9,11 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.2.0/svg.min.js" crossorigin="anonymous"></script>
 
+        <!-- https://d3js.org/getting-started#d3-in-vanilla-html -->
+        <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+        <!-- https://observablehq.com/plot/getting-started#plot-in-vanilla-html -->
+        <!-- script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script -->
+
         <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js" crossorigin="anonymous"></script>
         <style>[v-cloak]>*{display: none} [v-cloak]::before{content:"loading..."}</style>
 
@@ -26,7 +31,7 @@
                     <div class="tabs">
                         <ul>
                             <li @click="updateTab('room')" :class="{'is-active': tab === 'room'}"><a>Room</a></li>
-                            <li @click="updateTab('mountain')" :class="{'is-active': tab === 'mountain'}"><a>Mountain (Not Implemented yet)</a></li>
+                            <li @click="updateTab('mountain')" :class="{'is-active': tab === 'mountain'}"><a>Mountain</a></li>
                         </ul>
                     </div>
 
@@ -49,13 +54,10 @@
                             <button class="button is-primary" @click="submit">→→→！！！無料！いますぐ契約！！！←←←</button>
                         </div>
                     </div>
-
-                    <div v-if="tab === 'mountain'">
-                        <input :value="hoge">
-                    </div>
                 </div>
 
                 <div id="canvas" class="is-fullwidth"></div> <!-- FIXME: Vue!!! -->
+                <div id="mountain-d3" class="is-fullwidth"></div> <!-- FIXME: Vue!!! -->
             </div>
         </section>
 
